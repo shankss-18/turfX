@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment Variables & Secrets (CRITICAL: NEVER COMMIT SENSITIVE SECRETS)
+.env
+.env.*
+!.env.example
+*.env
+*/.env
+*/.env.*
+!*/.env.example
+
+# Production Builds & Dist
+dist/
+build/
+*/dist/
+*/build/
+
+# Logs & Temporary Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.system_generated/
+.DS_Store
+Thumbs.db
+.tempmediaStorage/
