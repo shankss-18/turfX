@@ -356,15 +356,15 @@ export default function ManageBooking() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 sm:py-14 space-y-8">
         
         {/* Header */}
-        <div className="text-center space-y-2 max-w-lg mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+        <div className="text-center space-y-1.5 max-w-lg mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Match Self-Service</span>
           </div>
-          <h1 className="font-headline font-bold text-3xl sm:text-4xl text-on-surface tracking-tight">
+          <h1 className="font-headline font-bold text-2xl sm:text-3xl lg:text-4xl text-on-surface tracking-tight">
             Manage Your Booking
           </h1>
-          <p className="text-sm text-gray-500 font-sans">
+          <p className="text-xs sm:text-sm text-gray-500 font-sans">
             Enter your Booking ID or Phone Number to view, reschedule, or cancel your match.
           </p>
         </div>

@@ -78,24 +78,24 @@ function DateChip({ label, day, active, onClick, disabled }) {
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`flex flex-col items-center justify-center py-3 px-4 sm:px-5 rounded-2xl transition-all duration-200 flex-shrink-0 min-w-[4.25rem] sm:min-w-[5rem]
+      className={`flex flex-col items-center justify-center py-2.5 sm:py-3 px-3 sm:px-5 rounded-xl sm:rounded-2xl transition-all duration-200 flex-shrink-0 min-w-[3.75rem] sm:min-w-[5rem]
         ${
           active
-            ? 'bg-primary text-white shadow-lg scale-105 ring-4 ring-primary/20'
-            : 'bg-white border border-gray-200 text-on-surface hover:border-primary/40 hover:bg-primary/5 active:scale-95 shadow-sm'
+            ? 'bg-primary text-white shadow-md scale-105 ring-4 ring-primary/20'
+            : 'bg-white border border-gray-200 text-on-surface hover:border-primary/40 hover:bg-primary/5 active:scale-95 shadow-2xs'
         }
         ${disabled ? 'opacity-35 cursor-not-allowed' : 'cursor-pointer'}
       `}
     >
       <span
-        className={`text-[11px] font-bold uppercase tracking-wider ${
+        className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider ${
           active ? 'text-white/85' : 'text-gray-500'
         }`}
       >
         {label}
       </span>
       <span
-        className={`font-headline font-bold text-xl sm:text-2xl mt-1 leading-none ${
+        className={`font-headline font-bold text-lg sm:text-2xl mt-0.5 sm:mt-1 leading-none ${
           active ? 'text-white' : 'text-on-surface'
         }`}
       >
@@ -172,10 +172,10 @@ function SlotCard({ slot, isSelected, isPast, isBooked, isBlocked, onClick, anim
         <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-white text-primary flex items-center justify-center shadow-md border-2 border-primary">
           <Check className="w-3.5 h-3.5 stroke-[3]" />
         </span>
-        <span className="font-headline font-bold text-sm sm:text-base text-white">
+        <span className="font-headline font-bold text-xs sm:text-sm md:text-base text-white">
           {fmt12(slot.startTime)}
         </span>
-        <span className="text-xs font-semibold text-white/90">
+        <span className="text-[11px] sm:text-xs font-semibold text-white/90">
           ₹{slot.price}
         </span>
       </button>
@@ -186,13 +186,13 @@ function SlotCard({ slot, isSelected, isPast, isBooked, isBlocked, onClick, anim
     <button
       type="button"
       onClick={onClick}
-      className="flex flex-col items-center justify-center py-5 px-4 rounded-2xl bg-white border-[1.5px] border-emerald-600/90 hover:border-emerald-600 hover:bg-emerald-50/50 hover:shadow-md cursor-pointer transition-all duration-150 active:scale-95 group space-y-1 shadow-sm animate-slot-pop"
+      className="flex flex-col items-center justify-center py-3.5 sm:py-5 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-white border-[1.5px] border-emerald-600/90 hover:border-emerald-600 hover:bg-emerald-50/50 hover:shadow-md cursor-pointer transition-all duration-150 active:scale-95 group space-y-0.5 sm:space-y-1 shadow-2xs animate-slot-pop"
       style={{ animationDelay: `${animIdx * 20}ms` }}
     >
-      <span className="font-headline font-bold text-sm sm:text-base text-on-surface group-hover:text-primary transition-colors">
+      <span className="font-headline font-bold text-xs sm:text-sm md:text-base text-on-surface group-hover:text-primary transition-colors">
         {fmt12(slot.startTime)}
       </span>
-      <span className="text-xs font-bold text-secondary">
+      <span className="text-[11px] sm:text-xs font-bold text-secondary">
         ₹{slot.price}
       </span>
     </button>

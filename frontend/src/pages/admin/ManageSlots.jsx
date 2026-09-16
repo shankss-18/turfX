@@ -296,38 +296,38 @@ export default function ManageSlots() {
       <div className="p-4 sm:p-6 lg:p-10 space-y-6 sm:space-y-8 max-w-7xl">
         
         {/* HEADER & DATE SELECTOR */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="font-headline font-bold text-2xl sm:text-3xl text-on-surface tracking-tight">
+              <h1 className="font-headline font-bold text-xl sm:text-2xl lg:text-3xl text-on-surface tracking-tight">
                 Slot Management
               </h1>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-primary/10 text-primary">
+              <span className="text-[11px] sm:text-xs font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-primary/10 text-primary">
                 Green Box Cricket
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-on-surface-variant font-sans mt-1">
+            <p className="text-xs sm:text-sm text-on-surface-variant font-sans mt-0.5">
               Manage slots, block maintenance hours, cancel reservations, or inspect customer bookings.
             </p>
           </div>
 
           {/* Date Picker */}
           <div className="space-y-1 self-start sm:self-auto">
-            <label className="block text-[11px] font-sans font-semibold text-gray-500 uppercase tracking-wider">
+            <label className="block text-[10px] sm:text-[11px] font-sans font-semibold text-gray-500 uppercase tracking-wider">
               Select Date
             </label>
             <input
               type="date"
               value={dateInput}
               onChange={(e) => setDateInput(e.target.value)}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-gray-300 text-sm font-semibold text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all bg-white cursor-pointer shadow-xs"
+              className="w-full sm:w-auto px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-semibold text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all bg-white cursor-pointer shadow-xs"
             />
           </div>
         </div>
 
         {/* Feedback Alert */}
         {feedback && (
-          <div className="p-4 rounded-xl border text-sm font-semibold flex items-center gap-3 bg-emerald-50 text-[#006c49] border-emerald-200 animate-in fade-in">
+          <div className="p-3.5 sm:p-4 rounded-xl border text-xs sm:text-sm font-semibold flex items-center gap-2.5 sm:gap-3 bg-emerald-50 text-[#006c49] border-emerald-200 animate-in fade-in">
             <Check className="w-4 h-4 text-secondary shrink-0" />
             <span>{feedback.message}</span>
           </div>
@@ -335,7 +335,7 @@ export default function ManageSlots() {
 
         {/* Error Alert */}
         {error && (
-          <div className="p-4 rounded-xl border text-sm font-semibold flex items-center justify-between gap-3 bg-red-50 text-error border-red-200 animate-in fade-in">
+          <div className="p-3.5 sm:p-4 rounded-xl border text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 bg-red-50 text-error border-red-200 animate-in fade-in">
             <div className="flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
@@ -351,47 +351,47 @@ export default function ManageSlots() {
         )}
 
         {/* TOP 3 SUMMARY STATS CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-6">
           {/* Card 1: Available */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-surface-1 flex items-center gap-5">
-            <div className="w-12 h-12 rounded-full bg-[#6cf8bb]/20 border border-[#6cf8bb]/40 flex items-center justify-center text-[#006c49] flex-shrink-0">
-              <CheckCircle2 className="w-6 h-6 text-secondary" />
+          <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex items-center gap-4 sm:gap-5">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-full bg-[#6cf8bb]/20 border border-[#6cf8bb]/40 flex items-center justify-center text-[#006c49] flex-shrink-0">
+              <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-secondary" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              <p className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 Available
               </p>
-              <p className="font-headline font-bold text-2xl sm:text-3xl text-on-surface mt-0.5">
+              <p className="font-headline font-bold text-xl sm:text-2xl lg:text-3xl text-on-surface mt-0.5">
                 {counters.available}
               </p>
             </div>
           </div>
 
           {/* Card 2: Booked */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-surface-1 flex items-center gap-5">
-            <div className="w-12 h-12 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-primary flex-shrink-0">
-              <CalendarDays className="w-6 h-6 text-primary" />
+          <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex items-center gap-4 sm:gap-5">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-primary flex-shrink-0">
+              <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              <p className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 Booked
               </p>
-              <p className="font-headline font-bold text-2xl sm:text-3xl text-on-surface mt-0.5">
+              <p className="font-headline font-bold text-xl sm:text-2xl lg:text-3xl text-on-surface mt-0.5">
                 {counters.booked}
               </p>
             </div>
           </div>
 
           {/* Card 3: Blocked */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-surface-1 flex items-center gap-5">
-            <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-[#885500] flex-shrink-0">
-              <Wrench className="w-6 h-6 text-[#885500]" />
+          <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200/80 shadow-xs flex items-center gap-4 sm:gap-5">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-[#885500] flex-shrink-0">
+              <Wrench className="w-5 h-5 sm:w-6 sm:h-6 text-[#885500]" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              <p className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 Blocked
               </p>
-              <p className="font-headline font-bold text-2xl sm:text-3xl text-on-surface mt-0.5">
+              <p className="font-headline font-bold text-xl sm:text-2xl lg:text-3xl text-on-surface mt-0.5">
                 {counters.blocked}
               </p>
             </div>

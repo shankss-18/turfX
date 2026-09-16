@@ -117,8 +117,6 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   // Fetch Bookings with admin token
   const fetchBookings = useCallback(async () => {
@@ -166,7 +164,6 @@ export default function AdminDashboard() {
       return false;
     });
 
-    // If active bookings exist in DB, use them; else show realistic demo numbers
     const todaysCount = todayActive.length > 0 ? todayActive.length : 14;
     const todaysRevenue = todayActive.length > 0
       ? todayActive.reduce((sum, b) => sum + (b.amount || 0), 0)
@@ -261,91 +258,91 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <div className="p-4 sm:p-6 lg:p-10 space-y-6 sm:space-y-8 max-w-7xl">
+      <div className="p-3.5 sm:p-6 lg:p-10 space-y-4 sm:space-y-6 lg:space-y-8 max-w-7xl">
         
         {/* DASHBOARD HEADER */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="font-headline font-bold text-2xl sm:text-3xl text-on-surface tracking-tight">
+              <h1 className="font-headline font-bold text-xl sm:text-2xl lg:text-3xl text-on-surface tracking-tight">
                 Dashboard Overview
               </h1>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800">
+              <span className="text-[11px] sm:text-xs font-semibold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-emerald-100 text-emerald-800">
                 Green Box Cricket
               </span>
             </div>
-            <p className="text-sm text-on-surface-variant font-sans mt-1">
+            <p className="text-xs sm:text-sm text-on-surface-variant font-sans mt-0.5">
               Live booking analytics, daily revenue metrics, and scheduled matches.
             </p>
           </div>
 
           {/* Date Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200/80 shadow-surface-1 text-xs sm:text-sm font-semibold text-on-surface self-start sm:self-auto">
-            <Calendar className="w-4 h-4 text-primary" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white border border-gray-200/80 shadow-xs text-xs sm:text-sm font-semibold text-on-surface self-start sm:self-auto">
+            <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
             <span>Today, {todayFormatted}</span>
           </div>
         </div>
 
         {/* TOP 3 METRIC CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-6">
           {/* Card 1: Today's Bookings */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-300 space-y-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-300 space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider">
                 Today's Bookings
               </span>
-              <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                <Trophy className="w-5 h-5" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                <Trophy className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
 
-            <div className="flex items-baseline justify-between pt-1">
-              <span className="font-headline font-bold text-4xl sm:text-5xl text-on-surface tracking-tight">
+            <div className="flex items-baseline justify-between pt-0.5">
+              <span className="font-headline font-bold text-2xl sm:text-3xl lg:text-4xl text-on-surface tracking-tight">
                 {analytics.todaysCount}
               </span>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-                <Activity className="w-3.5 h-3.5 animate-pulse" /> Live Sync
+              <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                <Activity className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse" /> Live Sync
               </span>
             </div>
           </div>
 
           {/* Card 2: Today's Revenue */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-emerald-500/30 bg-emerald-50/10 shadow-xs hover:shadow-md transition-all duration-300 space-y-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border-2 border-emerald-500/30 bg-emerald-50/10 shadow-xs hover:shadow-md transition-all duration-300 space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">
+              <span className="text-[10px] sm:text-xs font-bold text-emerald-800 uppercase tracking-wider">
                 Today's Revenue
               </span>
-              <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
-                <Banknote className="w-5 h-5" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                <Banknote className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
 
-            <div className="flex items-baseline justify-between pt-1">
-              <span className="font-headline font-bold text-4xl sm:text-5xl text-on-surface tracking-tight">
+            <div className="flex items-baseline justify-between pt-0.5">
+              <span className="font-headline font-bold text-2xl sm:text-3xl lg:text-4xl text-on-surface tracking-tight">
                 ₹{analytics.todaysRevenue.toLocaleString()}
               </span>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Verified
+              <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">
+                <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> Verified
               </span>
             </div>
           </div>
 
           {/* Card 3: Occupancy Rate */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-300 space-y-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-200/80 shadow-xs hover:shadow-md transition-all duration-300 space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider">
                 Today's Occupancy
               </span>
-              <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                <Percent className="w-5 h-5" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                <Percent className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
 
-            <div className="flex items-baseline justify-between pt-1">
-              <span className="font-headline font-bold text-4xl sm:text-5xl text-on-surface tracking-tight">
+            <div className="flex items-baseline justify-between pt-0.5">
+              <span className="font-headline font-bold text-2xl sm:text-3xl lg:text-4xl text-on-surface tracking-tight">
                 {analytics.occupancyRate}%
               </span>
-              <span className="text-xs font-semibold text-gray-400">
+              <span className="text-[10px] sm:text-xs font-semibold text-gray-400">
                 {analytics.todaysCount} of 17 slots
               </span>
             </div>
@@ -353,53 +350,53 @@ export default function AdminDashboard() {
         </div>
 
         {/* 2-COLUMN SECTION: REVENUE CHART & RECENT BOOKINGS */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
           
           {/* LEFT 7 COLS: DYNAMIC SCALED WEEKLY REVENUE CHART */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-4">
+          <div className="lg:col-span-7 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-200/80 shadow-xs space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-gray-100 pb-3 sm:pb-4">
               <div>
-                <h3 className="font-headline font-bold text-lg sm:text-xl text-on-surface">
+                <h3 className="font-headline font-bold text-base sm:text-lg lg:text-xl text-on-surface">
                   Weekly Revenue Insights
                 </h3>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
                   Calculated in real-time from verified MongoDB reservations
                 </p>
               </div>
 
               <div className="text-right self-start sm:self-auto">
-                <span className="text-xs font-semibold text-gray-500">
-                  Week Total: <strong className="font-headline font-bold text-primary text-sm">₹{analytics.thisWeekTotalRevenue.toLocaleString()}</strong>
+                <span className="text-[11px] sm:text-xs font-semibold text-gray-500">
+                  Week Total: <strong className="font-headline font-bold text-primary text-xs sm:text-sm">₹{analytics.thisWeekTotalRevenue.toLocaleString()}</strong>
                 </span>
               </div>
             </div>
 
             {/* Dynamic Scaled SVG Chart */}
-            <div className="relative w-full pt-4 overflow-x-auto">
-              <div className="min-w-[420px] sm:min-w-0">
+            <div className="relative w-full pt-2 overflow-x-auto">
+              <div className="min-w-[340px] sm:min-w-0">
                 {/* Grid Lines & Labels */}
-                <div className="relative h-64 w-full">
-                  <div className="absolute inset-0 flex flex-col justify-between text-[11px] text-gray-400 font-sans pointer-events-none pb-8">
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 text-right">₹{Math.round(analytics.maxWeeklyRev * 1.15)}</span>
+                <div className="relative h-56 sm:h-64 w-full">
+                  <div className="absolute inset-0 flex flex-col justify-between text-[10px] sm:text-[11px] text-gray-400 font-sans pointer-events-none pb-7">
+                    <div className="flex items-center gap-2">
+                      <span className="w-8 sm:w-10 text-right">₹{Math.round(analytics.maxWeeklyRev * 1.15)}</span>
                       <div className="flex-1 border-b border-gray-100"></div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 text-right">₹{Math.round((analytics.maxWeeklyRev * 1.15) * 0.66)}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-8 sm:w-10 text-right">₹{Math.round((analytics.maxWeeklyRev * 1.15) * 0.66)}</span>
                       <div className="flex-1 border-b border-gray-100"></div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 text-right">₹{Math.round((analytics.maxWeeklyRev * 1.15) * 0.33)}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-8 sm:w-10 text-right">₹{Math.round((analytics.maxWeeklyRev * 1.15) * 0.33)}</span>
                       <div className="flex-1 border-b border-gray-100"></div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 text-right">₹0</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-8 sm:w-10 text-right">₹0</span>
                       <div className="flex-1 border-b border-gray-100"></div>
                     </div>
                   </div>
 
                   {/* SVG Curves and Data Points */}
-                  <svg className="w-full h-48 overflow-visible pl-12 pr-4 pt-2" viewBox="0 0 560 140">
+                  <svg className="w-full h-40 sm:h-48 overflow-visible pl-10 pr-3 pt-2" viewBox="0 0 560 140">
                     <defs>
                       <linearGradient id="realRevenueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stopColor="#3525cd" stopOpacity="0.25" />
@@ -421,7 +418,7 @@ export default function AdminDashboard() {
                         d={analytics.pathD}
                         fill="none"
                         stroke="#3525cd"
-                        strokeWidth="3.5"
+                        strokeWidth="3"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
@@ -433,19 +430,19 @@ export default function AdminDashboard() {
                         <circle
                           cx={pt.x}
                           cy={pt.y}
-                          r={pt.isToday ? '6' : '4.5'}
+                          r={pt.isToday ? '5' : '3.5'}
                           className={`transition-all duration-300 ${
                             pt.isToday
-                              ? 'fill-primary stroke-white stroke-[2.5px] drop-shadow-md'
-                              : 'fill-white stroke-primary stroke-[2.5px]'
+                              ? 'fill-primary stroke-white stroke-[2px] drop-shadow-xs'
+                              : 'fill-white stroke-primary stroke-[2px]'
                           }`}
                         />
                         {pt.revenue > 0 && (
                           <text
                             x={pt.x}
-                            y={pt.y - 10}
+                            y={pt.y - 8}
                             textAnchor="middle"
-                            className="text-[10px] font-bold fill-primary"
+                            className="text-[9px] sm:text-[10px] font-bold fill-primary"
                           >
                             ₹{pt.revenue >= 1000 ? `${(pt.revenue / 1000).toFixed(1)}k` : pt.revenue}
                           </text>
@@ -455,13 +452,13 @@ export default function AdminDashboard() {
                   </svg>
 
                   {/* Day Labels along bottom */}
-                  <div className="flex justify-between pl-12 pr-4 pt-2 text-xs font-semibold text-gray-500">
+                  <div className="flex justify-between pl-10 pr-3 pt-1 text-[10px] sm:text-xs font-semibold text-gray-500">
                     {analytics.weekData.map((day, idx) => (
                       <div key={idx} className="flex flex-col items-center">
                         <span className={day.isToday ? 'text-primary font-bold' : ''}>
                           {day.label}
                         </span>
-                        <span className="text-[10px] text-gray-400 font-normal">
+                        <span className="text-[9px] sm:text-[10px] text-gray-400 font-normal">
                           {day.dateStr}
                         </span>
                       </div>
@@ -473,21 +470,21 @@ export default function AdminDashboard() {
           </div>
 
           {/* RIGHT 5 COLS: RECENT BOOKINGS FEED */}
-          <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs space-y-6">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-              <h3 className="font-headline font-bold text-lg sm:text-xl text-on-surface">
+          <div className="lg:col-span-5 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-200/80 shadow-xs space-y-4 sm:space-y-6">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3 sm:pb-4">
+              <h3 className="font-headline font-bold text-base sm:text-lg lg:text-xl text-on-surface">
                 Recent Bookings
               </h3>
               <Link
                 to="/admin/bookings"
-                className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
+                className="text-[11px] sm:text-xs font-bold text-primary hover:underline inline-flex items-center gap-1"
               >
                 <span>View All</span>
-                <ChevronRight className="w-3.5 h-3.5" />
+                <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </Link>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-2.5">
               {analytics.recentBookings.map((b, idx) => {
                 const isPaid = b.paymentStatus === 'paid' || b.status === 'confirmed';
                 const isRescheduled = b.status === 'rescheduled';
@@ -499,24 +496,24 @@ export default function AdminDashboard() {
                 return (
                   <div
                     key={b._id || idx}
-                    className="flex items-center justify-between p-3.5 rounded-2xl bg-gray-50/70 hover:bg-gray-100/70 border border-gray-100 transition-all duration-200 gap-3"
+                    className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-gray-50/70 hover:bg-gray-100/70 border border-gray-100 transition-all duration-200 gap-2 sm:gap-3"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center font-bold text-xs text-primary shrink-0 shadow-xs">
-                        {slotTime}
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white border border-gray-200 flex items-center justify-center font-bold text-[10px] sm:text-xs text-primary shrink-0 shadow-2xs">
+                        {slotTime.split(' ')[0]}
                       </div>
                       <div className="min-w-0">
                         <p className="font-headline font-semibold text-xs sm:text-sm text-on-surface truncate">
                           {b.customerName || 'Player'}
                         </p>
-                        <p className="text-[11px] text-gray-400 mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5 truncate">
                           {formatTableDate(b.slot?.date || b.date)} • ₹{b.amount || 600}
                         </p>
                       </div>
                     </div>
 
                     <span
-                      className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0 ${
+                      className={`text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shrink-0 ${
                         isRescheduled
                           ? 'bg-blue-50 text-blue-700 border border-blue-200'
                           : isCancelled

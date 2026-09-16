@@ -120,30 +120,30 @@ export default function Home() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-headline font-bold text-4xl sm:text-5xl lg:text-[52px] text-on-surface leading-[1.15] tracking-tight">
+            <h1 className="font-headline font-bold text-2xl sm:text-4xl lg:text-5xl text-on-surface leading-[1.2] sm:leading-[1.15] tracking-tight">
               Your <span className="text-primary">Premier</span>
               <br />
               Cricket Box.
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-on-surface-variant font-sans max-w-xl leading-relaxed">
+            <p className="text-xs sm:text-base lg:text-lg text-on-surface-variant font-sans max-w-xl leading-relaxed">
               Experience high-energy night matches on professional-grade artificial turf. Floodlit, accessible, and ready for your team.
             </p>
 
             {/* Action Row */}
-            <div className="flex flex-wrap items-center gap-6 pt-2">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 sm:pt-2">
               <Link to="/book">
-                <Button size="lg" className="px-8 py-3.5 text-base font-semibold shadow-surface-1 hover:shadow-surface-2 bg-primary hover:bg-[#2d1eb3]">
+                <Button size="lg" className="px-6 sm:px-8 py-2.5 sm:py-3.5 text-sm sm:text-base font-semibold shadow-surface-1 hover:shadow-surface-2 bg-primary hover:bg-[#2d1eb3]">
                   Book Now
                 </Button>
               </Link>
 
               {/* Rating */}
-              <div className="flex items-center gap-2 text-sm font-medium text-on-surface">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-on-surface">
+                <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
                 <span className="font-semibold text-on-surface">4.8/5</span>
-                <span className="text-on-surface-variant text-xs sm:text-sm font-normal">(200+ reviews)</span>
+                <span className="text-on-surface-variant text-[11px] sm:text-sm font-normal">(200+ reviews)</span>
               </div>
             </div>
           </div>
@@ -234,12 +234,12 @@ export default function Home() {
           onMouseLeave={() => setIsPaused(false)}
         >
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
             <div>
-              <span className="text-xs font-headline font-semibold uppercase tracking-wider text-primary">
+              <span className="text-[10px] sm:text-xs font-headline font-semibold uppercase tracking-wider text-primary">
                 Seamless Experience
               </span>
-              <h2 className="font-headline font-bold text-3xl sm:text-4xl text-on-surface mt-1">
+              <h2 className="font-headline font-bold text-xl sm:text-2xl lg:text-3xl text-on-surface mt-0.5 sm:mt-1">
                 Book in <span className="text-primary">3 Simple Steps</span>
               </h2>
             </div>
