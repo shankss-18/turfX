@@ -17,10 +17,8 @@ import {
   Lock,
   ChevronRight,
   Compass,
-  AlertCircle,
-  RotateCcw,
 } from 'lucide-react';
-import { useBooking } from '../context/BookingContext';
+import { useBooking, DEFAULT_GROUND } from '../context/BookingContext';
 import Button from '../components/common/Button';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -34,40 +32,32 @@ function format12(timeStr) {
 }
 
 export default function Home() {
-  const { setSelectedGround } = useBooking();
+  const { selectedGround, setSelectedGround } = useBooking();
 
-  const [ground, setGround] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Instant default state so page never gets stuck on skeleton
+  const [ground, setGround] = useState(() => selectedGround || DEFAULT_GROUND);
 
   // Interactive 3-Steps State
   const [activeStep, setActiveStep] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
-  const [previewSelectedSlot, setPreviewSelectedSlot] = useState('7:00 PM');
+  const [previewSelectedSlot, setPreviewSelectedSlot] = useState('07:00 PM');
   const [previewPaymentMethod, setPreviewPaymentMethod] = useState('upi');
 
-  // Fetch single ground from backend API on mount
+  // Background fetch to sync ground details if server is available
   const fetchGround = useCallback(async () => {
-    setLoading(true);
-    setError(null);
     try {
       const res = await fetch(`${API_URL}/api/grounds`);
-      if (!res.ok) {
-        throw new Error(`Failed to load ground details (Status: ${res.status})`);
-      }
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        const firstGround = data[0];
-        setGround(firstGround);
-        setSelectedGround(firstGround);
-      } else {
-        throw new Error('No grounds found in database');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          const firstGround = data[0];
+          setGround(firstGround);
+          setSelectedGround(firstGround);
+        }
       }
     } catch (err) {
-      console.error('Home: error fetching ground:', err);
-      setError(err.message || 'Could not connect to backend server');
-    } finally {
-      setLoading(false);
+      // Graceful fallback to default ground — zero blocking
+      console.warn('Using default ground specs:', err.message);
     }
   }, [setSelectedGround]);
 
@@ -114,69 +104,6 @@ export default function Home() {
     },
   ];
 
-  // LOADING SKELETON
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-12 py-8 sm:py-12 space-y-16 animate-pulse">
-          {/* Hero Skeleton */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6 space-y-5">
-              <div className="w-36 h-7 bg-gray-200 rounded-full"></div>
-              <div className="space-y-3">
-                <div className="w-3/4 h-12 bg-gray-200 rounded-xl"></div>
-                <div className="w-1/2 h-12 bg-gray-200 rounded-xl"></div>
-              </div>
-              <div className="w-5/6 h-5 bg-gray-200 rounded"></div>
-              <div className="flex gap-4 pt-2">
-                <div className="w-36 h-12 bg-gray-200 rounded-xl"></div>
-                <div className="w-28 h-12 bg-gray-200 rounded-xl"></div>
-              </div>
-            </div>
-            <div className="lg:col-span-6">
-              <div className="aspect-[4/3] w-full rounded-2xl bg-gray-200"></div>
-            </div>
-          </div>
-
-          {/* Specs Cards Skeleton */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-28 rounded-xl bg-gray-200 p-6"></div>
-            ))}
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  // ERROR STATE
-  if (error) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
-        <div className="max-w-md w-full bg-white rounded-2xl p-8 border border-red-200 shadow-surface-2 text-center space-y-5 animate-in fade-in">
-          <div className="w-14 h-14 rounded-2xl bg-red-50 text-error flex items-center justify-center mx-auto border border-red-100">
-            <AlertCircle className="w-7 h-7" />
-          </div>
-          <div>
-            <h2 className="font-headline font-bold text-xl text-on-surface">
-              Unable to Load Ground Details
-            </h2>
-            <p className="text-sm text-on-surface-variant mt-2 font-sans">
-              {error}
-            </p>
-          </div>
-          <Button
-            onClick={fetchGround}
-            className="w-full py-3 bg-primary hover:bg-[#2d1eb3] text-white flex items-center justify-center gap-2"
-          >
-            <RotateCcw className="w-4 h-4" />
-            <span>Retry Connection</span>
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Main Container */}
@@ -187,7 +114,7 @@ export default function Home() {
           {/* Left Column: Copy & CTAs */}
           <div className="lg:col-span-6 space-y-6">
             {/* Location Pill */}
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-secondary text-xs font-semibold tracking-wide border border-emerald-200/60">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-secondary text-xs font-semibold tracking-wide border border-emerald-200/60 shadow-xs">
               <MapPin className="w-3.5 h-3.5 text-secondary" />
               <span>{locationBadge}</span>
             </div>
@@ -224,7 +151,6 @@ export default function Home() {
           {/* Right Column: Hero Turf Graphic */}
           <div className="lg:col-span-6">
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-surface-2 border border-gray-200/80 bg-gray-950 group">
-              {/* Indoor Box Cricket Turf Hero Image */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-[#032815]">
                 <img
                   src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1200&q=80"
@@ -246,15 +172,15 @@ export default function Home() {
         {/* SPECS / FEATURE CARDS */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Opening Hours */}
-          <div className="group bg-white rounded-xl p-6 border border-gray-200/80 shadow-surface-1 hover:border-[#c7c4d8] hover:shadow-surface-2 transition-all duration-200 flex items-start gap-4 cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-[#f3f4f5] group-hover:bg-primary-container flex items-center justify-center flex-shrink-0 text-primary group-hover:text-white transition-all duration-200">
+          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-md transition-all duration-200 flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary transition-all duration-200">
               <Clock className="w-5 h-5 transition-colors" />
             </div>
             <div>
               <h3 className="font-headline font-semibold text-lg text-on-surface">
                 Opening Hours
               </h3>
-              <p className="text-sm font-normal text-on-surface mt-1">
+              <p className="text-sm font-semibold text-on-surface mt-1">
                 {openHours}
               </p>
               <p className="text-xs text-on-surface-variant mt-0.5">
@@ -264,16 +190,16 @@ export default function Home() {
           </div>
 
           {/* Card 2: Pricing */}
-          <div className="group bg-white rounded-xl p-6 border border-gray-200/80 shadow-surface-1 hover:border-[#c7c4d8] hover:shadow-surface-2 transition-all duration-200 flex items-start gap-4 cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-[#f3f4f5] group-hover:bg-primary-container flex items-center justify-center flex-shrink-0 text-primary group-hover:text-white transition-all duration-200">
+          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-md transition-all duration-200 flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center flex-shrink-0 text-emerald-700 transition-all duration-200">
               <Banknote className="w-5 h-5 transition-colors" />
             </div>
             <div>
               <h3 className="font-headline font-semibold text-lg text-on-surface">
                 Pricing
               </h3>
-              <p className="text-sm font-normal text-on-surface mt-1">
-                Starts at <span className="font-semibold text-secondary">{startingPrice}</span>
+              <p className="text-sm font-semibold text-on-surface mt-1">
+                Starts at <span className="font-bold text-emerald-700">{startingPrice}</span>
               </p>
               <p className="text-xs text-on-surface-variant mt-0.5">
                 Peak hour rates apply
@@ -282,15 +208,15 @@ export default function Home() {
           </div>
 
           {/* Card 3: Amenities */}
-          <div className="group bg-white rounded-xl p-6 border border-gray-200/80 shadow-surface-1 hover:border-[#c7c4d8] hover:shadow-surface-2 transition-all duration-200 flex items-start gap-4 cursor-pointer">
-            <div className="w-12 h-12 rounded-full bg-[#f3f4f5] group-hover:bg-primary-container flex items-center justify-center flex-shrink-0 text-primary group-hover:text-white transition-all duration-200">
+          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-md transition-all duration-200 flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center flex-shrink-0 text-indigo-600 transition-all duration-200">
               <Sparkles className="w-5 h-5 transition-colors" />
             </div>
             <div>
               <h3 className="font-headline font-semibold text-lg text-on-surface">
                 Amenities
               </h3>
-              <p className="text-sm font-normal text-on-surface mt-1">
+              <p className="text-sm font-semibold text-on-surface mt-1">
                 Floodlights, Parking,
               </p>
               <p className="text-xs text-on-surface-variant mt-0.5">
@@ -327,7 +253,7 @@ export default function Home() {
                   aria-label={`Jump to step ${s.id}`}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     activeStep === s.id
-                      ? 'w-8 bg-primary shadow-sm'
+                      ? 'w-8 bg-primary shadow-xs'
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                 />
@@ -350,8 +276,8 @@ export default function Home() {
                     onMouseEnter={() => setActiveStep(s.id)}
                     className={`group cursor-pointer rounded-2xl p-5 border transition-all duration-300 relative ${
                       isActive
-                        ? 'bg-white border-primary/40 shadow-surface-2 ring-1 ring-primary/10 translate-x-1'
-                        : 'bg-white/60 hover:bg-white border-gray-200/80 hover:border-gray-300 hover:shadow-surface-1'
+                        ? 'bg-white border-primary/40 shadow-md ring-1 ring-primary/10 translate-x-1'
+                        : 'bg-white/60 hover:bg-white border-gray-200/80 hover:border-gray-300 hover:shadow-xs'
                     }`}
                   >
                     {/* Connecting Line between steps */}
@@ -487,7 +413,7 @@ export default function Home() {
                             key={d}
                             className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
                               i === 0
-                                ? 'bg-primary text-white shadow-md'
+                                ? 'bg-primary text-white shadow-xs'
                                 : 'bg-gray-800/80 text-gray-400 hover:text-white border border-gray-700'
                             }`}
                           >
@@ -513,7 +439,7 @@ export default function Home() {
                               type="button"
                               disabled={isBooked}
                               onClick={() => setPreviewSelectedSlot(s.time)}
-                              className={`p-2.5 rounded-xl text-center border transition-all duration-200 relative group/slot ${
+                              className={`p-2.5 rounded-xl text-center border transition-all duration-200 relative group/slot cursor-pointer ${
                                 isBooked
                                   ? 'bg-gray-900/60 border-gray-800 text-gray-500 opacity-60 cursor-not-allowed'
                                   : isSelected
@@ -522,7 +448,7 @@ export default function Home() {
                               }`}
                             >
                               {isSelected && (
-                                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white text-primary flex items-center justify-center text-[10px] font-bold shadow">
+                                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white text-primary flex items-center justify-center text-[10px] font-bold shadow-xs">
                                   ✓
                                 </span>
                               )}
@@ -575,7 +501,7 @@ export default function Home() {
                               key={m.id}
                               type="button"
                               onClick={() => setPreviewPaymentMethod(m.id)}
-                              className={`p-2.5 rounded-xl border flex flex-col items-center gap-1 text-xs transition-all ${
+                              className={`p-2.5 rounded-xl border flex flex-col items-center gap-1 text-xs transition-all cursor-pointer ${
                                 isPicked
                                   ? 'bg-primary/20 border-primary text-white ring-1 ring-primary/40'
                                   : 'bg-gray-900/80 border-gray-800 text-gray-400 hover:text-gray-200'
@@ -591,7 +517,7 @@ export default function Home() {
                       {/* Mock Credit / UPI Preview Box */}
                       <div className="bg-gradient-to-r from-gray-900 to-indigo-950/80 rounded-2xl p-4 border border-indigo-500/30 space-y-2">
                         <div className="flex items-center justify-between text-xs text-gray-400">
-                          <span>Razorpay Secure Gateway</span>
+                          <span>Razorpay Demo Gateway</span>
                           <span className="text-emerald-400 font-mono font-bold">256-Bit SSL</span>
                         </div>
                         <div className="flex items-center justify-between text-white font-headline pt-1">
@@ -602,7 +528,7 @@ export default function Home() {
                           <div className="text-right">
                             <p className="text-[10px] uppercase text-gray-400">Total</p>
                             <p className="text-base font-bold text-emerald-400">
-                              ₹{Math.round((ground?.pricePerSlot || 600) * 1.18)}
+                              ₹{ground?.pricePerSlot || 600}
                             </p>
                           </div>
                         </div>
@@ -611,7 +537,7 @@ export default function Home() {
                       {/* Pay Button Shimmer Preview */}
                       <div className="w-full py-2.5 px-4 rounded-xl bg-primary text-white font-headline font-semibold text-xs text-center shadow-lg flex items-center justify-center gap-2">
                         <Lock className="w-3.5 h-3.5" />
-                        <span>Pay ₹{Math.round((ground?.pricePerSlot || 600) * 1.18)} Instantly</span>
+                        <span>Pay ₹{ground?.pricePerSlot || 600} Instantly</span>
                       </div>
                     </div>
                   )}

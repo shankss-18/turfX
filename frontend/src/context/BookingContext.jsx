@@ -1,5 +1,18 @@
 import React, { createContext, useContext, useState } from 'react';
 
+export const DEFAULT_GROUND = {
+  _id: '67b600000000000000000001',
+  name: 'Green Box Cricket',
+  location: 'Gachibowli, Hyderabad',
+  description: 'Premier floodlit artificial turf box cricket ground with professional grade turf and safety nets.',
+  pricePerSlot: 600,
+  peakPrice: 900,
+  openTime: '06:00',
+  closeTime: '23:00',
+  images: ['https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1200&q=80'],
+  amenities: ['Floodlights', 'Parking', 'Pro Gear', 'Seating Dugout', 'Drinking Water', 'Washroom'],
+};
+
 const BookingContext = createContext(null);
 
 // Format date object to "DD-MM-YYYY"
@@ -11,7 +24,7 @@ function toDDMMYYYY(d = new Date()) {
 }
 
 export function BookingProvider({ children }) {
-  const [selectedGround, setSelectedGround] = useState(null);
+  const [selectedGround, setSelectedGround] = useState(DEFAULT_GROUND);
   const [selectedDate, setSelectedDate] = useState(() => toDDMMYYYY(new Date()));
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [lastBooking, setLastBooking] = useState(null);
