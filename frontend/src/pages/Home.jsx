@@ -112,16 +112,16 @@ export default function Home() {
         {/* HERO SECTION */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Column: Copy & CTAs */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-6 animate-fade-up">
             {/* Location Pill */}
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-secondary text-xs font-semibold tracking-wide border border-emerald-200/60 shadow-xs">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-secondary text-xs font-semibold tracking-wide border border-emerald-200/60 shadow-xs hover:scale-105 transition-transform duration-300">
               <MapPin className="w-3.5 h-3.5 text-secondary" />
               <span>{locationBadge}</span>
             </div>
 
             {/* Headline */}
             <h1 className="font-headline font-bold text-2xl sm:text-4xl lg:text-5xl text-on-surface leading-[1.2] sm:leading-[1.15] tracking-tight">
-              Your <span className="text-primary">Premier</span>
+              Your <span className="text-primary bg-gradient-to-r from-primary to-indigo-600 bg-clip-text text-transparent">Premier</span>
               <br />
               Cricket Box.
             </h1>
@@ -134,7 +134,7 @@ export default function Home() {
             {/* Action Row */}
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 sm:pt-2">
               <Link to="/book">
-                <Button size="lg" className="px-6 sm:px-8 py-2.5 sm:py-3.5 text-sm sm:text-base font-semibold shadow-surface-1 hover:shadow-surface-2 bg-primary hover:bg-[#2d1eb3]">
+                <Button size="lg" className="px-6 sm:px-8 py-2.5 sm:py-3.5 text-sm sm:text-base font-semibold shadow-surface-1 hover:shadow-surface-2 bg-primary hover:bg-[#2d1eb3] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
                   Book Now
                 </Button>
               </Link>
@@ -148,22 +148,237 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column: Hero Turf Graphic */}
-          <div className="lg:col-span-6">
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-surface-2 border border-gray-200/80 bg-gray-950 group">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-[#032815]">
-                <img
-                  src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1200&q=80"
-                  alt="TurfX Box Cricket Pitch"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
+          {/* Right Column: Hero Animated SVG Box Cricket Arena Graphic */}
+          <div className="lg:col-span-6 animate-fade-up">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-800/80 bg-gradient-to-b from-gray-950 via-[#07130e] to-[#041009] p-4 sm:p-6 group select-none transition-all duration-500 hover:border-emerald-500/40 hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]">
+              
+              {/* Top Floater Badge (Glassmorphic) */}
+              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20 flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-gray-900/85 backdrop-blur-md border border-emerald-500/30 shadow-lg animate-float-slow">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-emerald-400">Live Night Session</span>
+                  <span className="text-xs font-semibold text-white">Floodlights 100% Active</span>
+                </div>
+              </div>
 
-                {/* Overlaid Floodlight Gradient Effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+              {/* Bottom Floater Badge (Glassmorphic) */}
+              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20 flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-gray-900/85 backdrop-blur-md border border-indigo-500/30 shadow-lg animate-float-reverse">
+                <div className="w-8 h-8 rounded-xl bg-primary/20 text-indigo-300 flex items-center justify-center border border-primary/40 font-bold text-xs">
+                  TX
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-indigo-300">Instant Booking</span>
+                  <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                    <Check className="w-3 h-3 stroke-[3]" /> Slot Confirmed
+                  </span>
+                </div>
+              </div>
 
-                {/* Pitch Highlights */}
-                <div className="absolute top-0 left-1/4 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute top-0 right-1/4 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+              {/* Vector SVG Arena Container */}
+              <div className="relative aspect-[4/3] w-full flex items-center justify-center overflow-hidden rounded-2xl">
+                
+                {/* Background Ambient Glows */}
+                <div className="absolute top-0 left-1/4 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+                <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                {/* SVG BOX CRICKET STADIUM ILLUSTRATION */}
+                <svg
+                  viewBox="0 0 600 450"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-full h-full transform transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                >
+                  <defs>
+                    {/* Turf Gradient */}
+                    <radialGradient id="turfGrassGrad" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#15803d" />
+                      <stop offset="45%" stopColor="#166534" />
+                      <stop offset="85%" stopColor="#14532d" />
+                      <stop offset="100%" stopColor="#052e16" />
+                    </radialGradient>
+
+                    {/* Pitch Strip Gradient */}
+                    <linearGradient id="pitchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#ca8a04" stopOpacity="0.85" />
+                      <stop offset="50%" stopColor="#d97706" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#b45309" stopOpacity="0.85" />
+                    </linearGradient>
+
+                    {/* Floodlight Beam Left */}
+                    <linearGradient id="beamLeftGrad" x1="0%" y1="0%" x2="50%" y2="80%">
+                      <stop offset="0%" stopColor="#a7f3d0" stopOpacity="0.55" />
+                      <stop offset="40%" stopColor="#34d399" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                    </linearGradient>
+
+                    {/* Floodlight Beam Right */}
+                    <linearGradient id="beamRightGrad" x1="100%" y1="0%" x2="50%" y2="80%">
+                      <stop offset="0%" stopColor="#818cf8" stopOpacity="0.55" />
+                      <stop offset="40%" stopColor="#6366f1" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="#4f46e5" stopOpacity="0" />
+                    </linearGradient>
+
+                    {/* Ball Glow Filter */}
+                    <filter id="neonBallGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                    
+                    {/* Stadium Boundary Glow */}
+                    <filter id="boundaryGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+
+                    {/* Turf Mesh Pattern */}
+                    <pattern id="turfGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#22c55e" strokeWidth="0.5" strokeOpacity="0.15" />
+                    </pattern>
+                  </defs>
+
+                  {/* 1. STADIUM BACKGROUND FLOOR */}
+                  <rect width="600" height="450" fill="transparent" />
+
+                  {/* 2. OUTER STADIUM ARENA BOUNDARY (ISOMETRIC OVAL) */}
+                  <ellipse cx="300" cy="245" rx="275" ry="165" fill="#021c10" stroke="#1e293b" strokeWidth="3" />
+                  <ellipse cx="300" cy="245" rx="260" ry="155" fill="url(#turfGrassGrad)" stroke="#10b981" strokeWidth="2" strokeOpacity="0.6" filter="url(#boundaryGlow)" />
+                  
+                  {/* Turf Grid Overlay */}
+                  <ellipse cx="300" cy="245" rx="260" ry="155" fill="url(#turfGrid)" />
+
+                  {/* 3. BOUNDARY SAFETY NETTING CAGE POSTS & RAYS */}
+                  <path d="M 40 245 Q 300 420 560 245" fill="none" stroke="#22c55e" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.3" />
+                  <path d="M 40 245 Q 300 70 560 245" fill="none" stroke="#22c55e" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.3" />
+                  
+                  {/* Outer Boundary Ring Line */}
+                  <ellipse cx="300" cy="245" rx="230" ry="135" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.3" strokeDasharray="8 6" />
+
+                  {/* 30-Yard Inner Circle Marking */}
+                  <ellipse cx="300" cy="245" rx="160" ry="90" fill="none" stroke="#a7f3d0" strokeWidth="1.5" strokeOpacity="0.45" />
+
+                  {/* 4. CRICKET PITCH (CENTER RECTANGLE ISOMETRIC STRIP) */}
+                  <g transform="rotate(-15 300 245)">
+                    {/* Pitch Base */}
+                    <rect x="235" y="150" width="130" height="190" rx="6" fill="url(#pitchGrad)" stroke="#fef08a" strokeWidth="1.5" strokeOpacity="0.6" />
+                    
+                    {/* Pitch Inner Crease Lines */}
+                    {/* Bowling Crease 1 */}
+                    <line x1="245" y1="175" x2="355" y2="175" stroke="#ffffff" strokeWidth="2" strokeOpacity="0.8" />
+                    <line x1="245" y1="165" x2="245" y2="185" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.8" />
+                    <line x1="355" y1="165" x2="355" y2="185" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.8" />
+                    
+                    {/* Bowling Crease 2 (Batting End) */}
+                    <line x1="245" y1="315" x2="355" y2="315" stroke="#ffffff" strokeWidth="2" strokeOpacity="0.8" />
+                    <line x1="245" y1="305" x2="245" y2="325" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.8" />
+                    <line x1="355" y1="305" x2="355" y2="325" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.8" />
+
+                    {/* Stumps End 1 */}
+                    <circle cx="293" cy="165" r="2" fill="#ffffff" />
+                    <circle cx="300" cy="165" r="2" fill="#ffffff" />
+                    <circle cx="307" cy="165" r="2" fill="#ffffff" />
+                    <rect x="290" y="163" width="20" height="2" rx="1" fill="#facc15" />
+
+                    {/* Stumps End 2 (Batting End) */}
+                    <circle cx="293" cy="325" r="2" fill="#ffffff" />
+                    <circle cx="300" cy="325" r="2" fill="#ffffff" />
+                    <circle cx="307" cy="325" r="2" fill="#ffffff" />
+                    <rect x="290" y="325" width="20" height="2" rx="1" fill="#facc15" />
+
+                    {/* Batsman Marker Ring */}
+                    <circle cx="300" cy="305" r="14" fill="#3b82f6" fillOpacity="0.25" stroke="#60a5fa" strokeWidth="1.5" />
+                    <circle cx="300" cy="305" r="4" fill="#60a5fa" />
+                    
+                    {/* Bowler Marker Ring */}
+                    <circle cx="300" cy="185" r="12" fill="#10b981" fillOpacity="0.25" stroke="#34d399" strokeWidth="1.5" />
+                    <circle cx="300" cy="185" r="3.5" fill="#34d399" />
+                  </g>
+
+                  {/* 5. FLOODLIGHT TOWERS & BEAMS */}
+                  {/* Tower 1 (Top Left) */}
+                  <g className="animate-beam">
+                    <polygon points="50,40 230,190 120,320 30,70" fill="url(#beamLeftGrad)" />
+                    <circle cx="50" cy="40" r="10" fill="#34d399" filter="url(#neonBallGlow)" />
+                    <circle cx="50" cy="40" r="4" fill="#ffffff" />
+                    <line x1="50" y1="40" x2="30" y2="150" stroke="#475569" strokeWidth="2.5" />
+                  </g>
+
+                  {/* Tower 2 (Top Right) */}
+                  <g className="animate-beam" style={{ animationDelay: '1.5s' }}>
+                    <polygon points="550,40 370,190 480,320 570,70" fill="url(#beamRightGrad)" />
+                    <circle cx="550" cy="40" r="10" fill="#818cf8" filter="url(#neonBallGlow)" />
+                    <circle cx="550" cy="40" r="4" fill="#ffffff" />
+                    <line x1="550" y1="40" x2="570" y2="150" stroke="#475569" strokeWidth="2.5" />
+                  </g>
+
+                  {/* Tower 3 (Bottom Left) */}
+                  <g>
+                    <circle cx="70" cy="370" r="7" fill="#10b981" opacity="0.8" />
+                    <line x1="70" y1="370" x2="55" y2="420" stroke="#334155" strokeWidth="2" />
+                  </g>
+
+                  {/* Tower 4 (Bottom Right) */}
+                  <g>
+                    <circle cx="530" cy="370" r="7" fill="#6366f1" opacity="0.8" />
+                    <line x1="530" y1="370" x2="545" y2="420" stroke="#334155" strokeWidth="2" />
+                  </g>
+
+                  {/* 6. ANIMATED SHOT TRAJECTORY (ARC OF THE BALL) */}
+                  {/* Parabolic Trajectory Path */}
+                  <path
+                    d="M 285 320 Q 210 110 470 140"
+                    fill="none"
+                    stroke="#4ade80"
+                    strokeWidth="2.5"
+                    className="animate-trajectory"
+                    filter="url(#neonBallGlow)"
+                  />
+                  
+                  {/* Second Assist Curve */}
+                  <path
+                    d="M 285 320 Q 380 180 470 140"
+                    fill="none"
+                    stroke="#38bdf8"
+                    strokeWidth="1"
+                    strokeDasharray="3 3"
+                    strokeOpacity="0.4"
+                  />
+
+                  {/* 7. DYNAMIC GLOWING CRICKET BALL */}
+                  <g className="animate-ball-shot">
+                    {/* Outer Glow Halo */}
+                    <circle cx="0" cy="0" r="8" fill="#facc15" fillOpacity="0.3" filter="url(#neonBallGlow)" />
+                    {/* Ball Body */}
+                    <circle cx="0" cy="0" r="5" fill="#ef4444" stroke="#ffffff" strokeWidth="1.5" />
+                    {/* Seam */}
+                    <path d="M -3 0 Q 0 -3 3 0" stroke="#ffffff" strokeWidth="0.75" fill="none" />
+                  </g>
+
+                  {/* 8. FIELDING POSITION RADAR BLIPS */}
+                  <circle cx="160" cy="210" r="4" fill="#4ade80" opacity="0.75" />
+                  <circle cx="160" cy="210" r="8" fill="none" stroke="#4ade80" strokeWidth="1" opacity="0.4" className="animate-ping" style={{ animationDuration: '3s' }} />
+
+                  <circle cx="430" cy="260" r="4" fill="#4ade80" opacity="0.75" />
+                  <circle cx="430" cy="260" r="8" fill="none" stroke="#4ade80" strokeWidth="1" opacity="0.4" className="animate-ping" style={{ animationDuration: '2.5s' }} />
+
+                  <circle cx="210" cy="340" r="4" fill="#818cf8" opacity="0.75" />
+                  <circle cx="390" cy="140" r="4" fill="#facc15" opacity="0.75" />
+
+                  {/* Center Ground Branding Pill */}
+                  <rect x="240" y="235" width="120" height="20" rx="10" fill="#052e16" stroke="#22c55e" strokeWidth="1" strokeOpacity="0.5" />
+                  <text x="300" y="249" fill="#86efac" fontSize="9" fontWeight="bold" fontFamily="Montserrat, sans-serif" textAnchor="middle" letterSpacing="0.08em">
+                    TURFX ARENA 1
+                  </text>
+                </svg>
+
               </div>
             </div>
           </div>
@@ -172,9 +387,9 @@ export default function Home() {
         {/* SPECS / FEATURE CARDS */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Opening Hours */}
-          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-md transition-all duration-200 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary transition-all duration-200">
-              <Clock className="w-5 h-5 transition-colors" />
+          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-start gap-4 animate-slide-up" style={{ animationDelay: '100ms' }}>
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <Clock className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
             </div>
             <div>
               <h3 className="font-headline font-semibold text-lg text-on-surface">
@@ -190,16 +405,16 @@ export default function Home() {
           </div>
 
           {/* Card 2: Pricing */}
-          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-md transition-all duration-200 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center flex-shrink-0 text-emerald-700 transition-all duration-200">
-              <Banknote className="w-5 h-5 transition-colors" />
+          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-start gap-4 animate-slide-up" style={{ animationDelay: '200ms' }}>
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center flex-shrink-0 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+              <Banknote className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
             </div>
             <div>
               <h3 className="font-headline font-semibold text-lg text-on-surface">
                 Pricing
               </h3>
               <p className="text-sm font-semibold text-on-surface mt-1">
-                Starts at <span className="font-bold text-emerald-700">{startingPrice}</span>
+                Starts at <span className="font-bold text-emerald-700 group-hover:text-emerald-600">{startingPrice}</span>
               </p>
               <p className="text-xs text-on-surface-variant mt-0.5">
                 Peak hour rates apply
@@ -208,9 +423,9 @@ export default function Home() {
           </div>
 
           {/* Card 3: Amenities */}
-          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-md transition-all duration-200 flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center flex-shrink-0 text-indigo-600 transition-all duration-200">
-              <Sparkles className="w-5 h-5 transition-colors" />
+          <div className="group bg-white rounded-2xl p-6 border border-gray-200/80 shadow-xs hover:border-[#c7c4d8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-start gap-4 animate-slide-up" style={{ animationDelay: '300ms' }}>
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center flex-shrink-0 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+              <Sparkles className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
             </div>
             <div>
               <h3 className="font-headline font-semibold text-lg text-on-surface">

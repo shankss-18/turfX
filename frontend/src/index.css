@@ -88,7 +88,7 @@ html, body, * {
   }
 }
 
-/* ── Animation keyframes ── */
+/* ── Lightweight, Hardware-Accelerated Animation Keyframes ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -115,11 +115,46 @@ html, body, * {
   50%       { box-shadow: 0 0 0 6px rgba(58, 40, 210, 0); }
 }
 
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(0.4deg); }
+}
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(7px) rotate(-0.4deg); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.06); }
+}
+@keyframes trajectoryDash {
+  0% { stroke-dashoffset: 160; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes ballFly {
+  0% { transform: translate(50px, 140px) scale(0.8); opacity: 0; }
+  20% { opacity: 1; }
+  45% { transform: translate(210px, 45px) scale(1.25); filter: drop-shadow(0 0 10px #4ade80); }
+  80% { transform: translate(370px, 95px) scale(1); opacity: 0.9; }
+  100% { transform: translate(480px, 150px) scale(0.7); opacity: 0; }
+}
+@keyframes beamGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
 .animate-fade-up   { animation: fadeUp  0.35s ease both; }
 .animate-fade-in   { animation: fadeIn  0.25s ease both; }
 .animate-slide-up  { animation: slideUp 0.4s cubic-bezier(.16,1,.3,1) both; }
 .animate-slot-pop  { animation: slotPop 0.3s cubic-bezier(.16,1,.3,1) both; }
 .animate-selected-pulse { animation: selectedPulse 1.4s ease-in-out infinite; }
+
+.animate-float-slow { animation: floatSlow 4s ease-in-out infinite; }
+.animate-float-reverse { animation: floatReverse 5s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 3.5s ease-in-out infinite; }
+.animate-trajectory { stroke-dasharray: 6 5; animation: trajectoryDash 3s linear infinite; }
+.animate-ball-shot { animation: ballFly 3.5s cubic-bezier(0.2, 0.9, 0.3, 1) infinite; }
+.animate-beam { animation: beamGlow 4s ease-in-out infinite; }
 
 .skeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
